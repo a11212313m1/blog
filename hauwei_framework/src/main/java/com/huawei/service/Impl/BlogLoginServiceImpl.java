@@ -10,6 +10,7 @@ import com.huawei.utils.BeanCopyUtils;
 import com.huawei.utils.JwtUtil;
 import com.huawei.utils.RedisCache;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,39 +21,33 @@ import java.util.Objects;
 
 
 @Service
-@RequiredArgsConstructor
 public class BlogLoginServiceImpl implements BlogLoginService {
 
-    private final RedisCache redisCache;
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private RedisCache redisCache;
+
     @Override
     public ResponseResult login(User user) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
-
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
-
-        //判断是否用户认证通过
+        //判断是否认证通过
         if(Objects.isNull(authenticate)){
-            throw new RuntimeException("用户名密码错误");
+            throw new RuntimeException("用户名或密码错误");
         }
-        //不为空，获取userid生成token
+        //获取userid 生成token
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         String userId = loginUser.getUser().getId().toString();
         String jwt = JwtUtil.createJWT(userId);
-        //吧用户信息存入redis
+        //把用户信息存入redis
         redisCache.setCacheObject("bloglogin:"+userId,loginUser);
 
-        //吧token和userinfo封装返回
-        UserInfoVo userInfoVo = BeanCopyUtils.copyBean(user, UserInfoVo.class);
+        //把token和userinfo封装 返回
+        //把User转换成UserInfoVo
+        UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);
         BlogUserLoginVo vo = new BlogUserLoginVo(jwt,userInfoVo);
-
         return ResponseResult.okResult(vo);
     }
-
-
-
-
-
-
-
 }
