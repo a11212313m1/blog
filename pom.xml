@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.huawei</groupId>
-    <artifactId>huawei_blog</artifactId>
+    <artifactId>hw_blog</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
@@ -48,13 +48,18 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.4.3</version>
+                <version>3.5.3</version>
             </dependency>
 <!--            阿里云OSS-->
             <dependency>
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
                 <version>3.10.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.32</version>
             </dependency>
 <!--            easyexcel-->
             <dependency>
