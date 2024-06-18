@@ -12,6 +12,8 @@
         <module>hauwei_framework</module>
         <module>huawei_admin</module>
         <module>hauwei_blog</module>
+        <module>huawei_admin</module>
+        <module>huawei_admin</module>
     </modules>
 
     <properties>
