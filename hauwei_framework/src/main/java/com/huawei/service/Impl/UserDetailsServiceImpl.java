@@ -17,7 +17,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 
 
-public class UserDetailServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserMapper userMapper;
     @Override
@@ -26,6 +26,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper();
         queryWrapper.eq(User::getUserName,username);
         User user = userMapper.selectOne(queryWrapper);
+        //System.out.println(user);
 
         //判断是否查到用户，没查到跑出异常，
         if(Objects.isNull(user)){

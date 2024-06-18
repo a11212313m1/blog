@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class UserInfoVo {
     private Long id;
-    private String nickname;
+    private String nickName;
     private String avatar;
     private String sex;
     private String email;

@@ -25,6 +25,19 @@ public class ResponseResult<T> implements Serializable {
         this.data = data;
         this.msg = msg;
     }
+    public ResponseResult(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+    public static ResponseResult okResult() {
+        ResponseResult result = new ResponseResult();
+        return result;
+    }
+
+    public static ResponseResult errorResult(int code, String msg) {
+        ResponseResult result = new ResponseResult();
+        return result.error(code, msg);
+    }
 
     public static ResponseResult okResult(int code,String msg){
         ResponseResult result = new ResponseResult();
