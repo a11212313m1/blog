@@ -18,4 +18,16 @@ public class LinkController {
     public ResponseResult getAllLink(){
         return linkService.getAllLink();
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }
